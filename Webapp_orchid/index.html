@@ -1,0 +1,925 @@
+<!DOCTYPE HTML>
+<!--
+	Urban by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Orchid - SIoT coursework</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+    	<!-- Here i will need to add packages when/if I need them AND CSS-->
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+    	<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js'></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<!-- Header -->
+			<header id="header" class="alt">
+				<div class="logo"><a href="index.html">Urban <span>by TEMPLATED</span></a></div>
+				<a href="#menu">Menu</a>
+			</header>
+
+		<!--Bea: Should I delete this?  Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="generic.html">About</a></li>
+					<!-- <li><a href="elements.html">Elements</a></li> -->
+				</ul>
+			</nav>
+
+		<!-- Banner -->
+			<section id="banner">
+				<div class="inner">
+					<header>
+						<h1>This is Orquid</h1>
+						<p>Orquid is a web app<br />Make the best of your oustide spaces</p>
+					</header>
+					<a href="#main" class="button big scrolly">Go!</a>
+				</div>
+			</section>
+
+		<!-- Main -->
+			<div id="main">
+				
+
+				<!-- Section choose. test from here up  -->
+					<section class="wrapper style1">
+						<div class="inner">
+							<!-- 2 Columns -->
+								<div class="flex flex-2">
+										<br/><!-- Just so that JSFiddle's Result label doesn't overlap the Chart -->
+										<select class="dropdown" id="selectMe" >
+												<!-- onchange="GetSelectValue()" -->
+											<option value="" selected="selected">Select a date</option>
+											<option value="Tuesday_chart">25 of December</option>
+											<option value="Wednesday_chart">26 of December</option>
+											<option value="Thursday_chart">27 of December</option>
+											<option value="Friday_chart">28 of December</option>
+											<option value="Saturday_chart">29 of December</option>
+											<option value="Sunday_chart">30 of December</option>
+											<option value="Monday_chart">31 of December</option> -->
+										</select>
+
+										<canvas id="Tuesday_chart" width="400" height="200" class="group"></canvas>
+                                        <canvas id='Wednesday_chart' width="400" height="200" class="group"></canvas>
+                                        <canvas id="Thursday_chart" width="400" height="200" class='group'></canvas>
+                                        <canvas id="Friday_chart" width="400" height="200" class='group'></canvas>
+                                        <canvas id="Saturday_chart" width="400" height="200" class='group'></canvas>
+                                        <canvas id="Sunday_chart" width="400" height="200" class='group'></canvas>
+                                        <canvas id="Monday_chart" width="400" height="200" class='group'></canvas>
+										<!-- <div id="chartContainer" style="height: 360px; width: 100%;"></div> -->
+								
+								
+								</div>
+						</div>
+					</section>
+				<!-- Week chart  -->
+				<section class="wrapper style2">
+						<div class="inner">
+							<!-- 2 Columns -->
+								<div class="flex flex-2">
+									<div class="col col1">
+										<h3>Activity during the week</h3>
+										<p> This chart shows you the activity in your outdoor space within the space of seven days according to the date you have selected</p>
+										
+									</div>
+									<div class="col col2">
+	
+				
+										<canvas id="Presence_chart" width="400" height="200"></canvas>
+									
+									</div>
+								</div>
+						</div>
+					</section>
+
+				<!-- Section Weather -->
+					<section class="wrapper style2">
+						<div class="inner">
+							<div class="flex flex-2">
+								<div class="col col2">
+						
+									<canvas id='Weather_chart' width="400" height="200"></canvas> 
+					
+									 <!-- <a href="#" class="button">Back up!</a>  -->
+								</div>
+								<div class="col col1 first">
+										<h3>Weather during the week </h3>
+										<p> This chart shows the weather in Las Palmas de Gran Canaria within the space of seven days according to the date you have selected</p>
+									
+								</div>
+							</div>
+						</div> 
+					
+
+			        </div> 
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="copyright">
+					<p>&copy; Beatriz Lopez Neira. All rights reserved. Template from: <a href="https://templated.co">TEMPLATED</a>.</p>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
+<script>
+// Here we will change the graphs
+$(document).ready(function () {
+$('.group').hide();
+$('#option1').show();
+$('#selectMe').change(function () {
+
+	$('.group').hide();
+	$('#'+$(this).val()).show();
+})
+
+
+});
+
+
+</script>
+
+<script>
+
+var Presence_data = []
+var Datetime_presence= []
+
+var Weather_data = []
+var humidity_data = []
+var Wind_speed_data = []
+var temperature_data = []
+var Datetime_weather = []
+
+var Presence_Tuesday= []
+var Weather_Tuesday  = []
+var humidity_Tuesday = []
+var Wind_speed_Tuesday  = []
+var temperature_Tuesday  = []
+var Datetime_Tuesday = []
+
+
+var Presence_Wednesday= []
+var Weather_Wednesday  = []
+var humidity_Wednesday = []
+var Wind_speed_Wednesday  = []
+var temperature_Wednesday  = []
+var Datetime_Wednesday  = []
+
+
+var Presence_Thursday = []
+var Weather_Thursday  = []
+var humidity_Thursday = []
+var Wind_speed_Thursday  = []
+var temperature_Thursday  = []
+var Datetime_Thursday  = []
+
+var Presence_Friday = []
+var Weather_Friday  = []
+var humidity_Friday = []
+var Wind_speed_Friday = []
+var temperature_Friday = []
+var Datetime_Friday  = []
+
+var Presence_Saturday = []
+var Weather_Saturday  = []
+var humidity_Saturday = []
+var Wind_speed_Saturday = []
+var temperature_Saturday = []
+var Datetime_Saturday  = []
+
+var Presence_Sunday = []
+var Weather_Sunday = []
+var humidity_Sunday = []
+var Wind_speed_Sunday = []
+var temperature_Sunday = []
+var Datetime_Sunday  = []
+
+var Presence_Monday = []
+var Weather_Monday = []
+var humidity_Monday = []
+var Wind_speed_Monday= []
+var temperature_Monday = []
+var Datetime_Monday = []
+
+
+
+	function ParsePresencedata(Presencedata) {
+            Papa.parse('Data_treatment/Data_treated/Presence/activity_hour_plot.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    Presencedata(results.data)
+                    console.log(results.data)
+
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+
+            })
+        }
+
+	function Presencedata(data) {
+        for (var i = 0, l=data.length; i < l; i++) {
+            var Presence_activity = data[i]['Activity_h']
+            var Presence_date_time= data[i]['Datetime']
+            Presence_data.push(parseInt(Presence_activity))
+            Datetime_presence.push(Presence_date_time)
+            console.log('PRESENCE CHECK ' + data[i]['Activity_h'])
+
+        }
+        // console.log('PRESENCE CHECK ' + data[0]['Activity_h'])
+        // console.log('PRESENCE CHECK 2' + data[1]['Activity_h'])
+
+    }	
+	function ParseWeatherdata(Weatherdata) {
+            Papa.parse('Data_treatment/Data_treated/Weather/weather_hour.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    Weatherdata(results.data)
+                    console.log(results.data)
+
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+
+            })
+        }
+    
+    
+
+    function Weatherdata(data) {
+        for (var i = 0, l=data.length; i < l; i++) {
+            var weather_description = data[i]['Weather']
+            var wind_speed_value= data[i]['Wind_speed']
+            var temperature_value = data[i]['temperature']
+            var humidity_value = data[i]['humidity']
+            var date_time= data[i]['Datetime']
+            Weather_data.push(parseInt(weather_description))
+            Wind_speed_data.push(parseInt(wind_speed_value))
+            temperature_data.push(parseInt(temperature_value))
+            humidity_data.push(parseInt(humidity_value))
+            Datetime_weather.push(date_time)
+
+        }
+
+
+    }
+    // Days 
+    
+    function ParseTuesdaydata(Tuesdaydata) {
+            Papa.parse('Data_treatment/Data_treated/Tuesday.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    Tuesdaydata(results.data)
+                    console.log("hey Tuesday" + results.data)
+
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+
+            })
+        }
+    
+    
+
+    function Tuesdaydata(data) {
+        for (var i = 0, l=data.length; i < l; i++) {
+            var Tuesday_presence_value = data[i]['Presence']
+            var Tuesday_weather_description = data[i]['Weather']
+            var Tuesday_wind_speed_value= data[i]['Wind_speed']
+            var Tuesday_temperature_value = data[i]['temperature']
+            var Tuesday_humidity_value = data[i]['humidity']
+            var Tuesday_date_time= data[i]['Datetime']
+            Presence_Tuesday.push(parseInt(Tuesday_presence_value))
+            Weather_Tuesday.push(parseInt(Tuesday_weather_description))
+            Wind_speed_Tuesday.push(parseInt(Tuesday_wind_speed_value))
+            temperature_Tuesday.push(parseInt(Tuesday_temperature_value))
+            humidity_Tuesday.push(parseInt(Tuesday_humidity_value))
+            Datetime_Tuesday.push(Tuesday_date_time)
+
+
+        }
+        console.log('CHECK Tuesday')
+        console.log('Hello' + data[0]['Wind_speed'])
+
+    }
+
+
+
+
+    function ParseWednesdaydata(Wednesdaydata) {
+            Papa.parse('Data_treatment/Data_treated/Wednesday.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    Wednesdaydata(results.data)
+                    console.log("hey Wednesday" + results.data)
+
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+
+            })
+        }
+    
+    
+
+    function Wednesdaydata(data) {
+        for (var i = 0, l=data.length; i < l; i++) {
+            var Wednesday_presence_value = data[i]['Presence']
+            var Wednesday_weather_description = data[i]['Weather']
+            var Wednesday_wind_speed_value= data[i]['Wind_speed']
+            var Wednesday_temperature_value = data[i]['temperature']
+            var Wednesday_humidity_value = data[i]['humidity']
+            var Wednesday_date_time= data[i]['Datetime']
+            Presence_Wednesday.push(parseInt(Wednesday_presence_value))
+            Weather_Wednesday.push(parseInt(Wednesday_weather_description))
+            Wind_speed_Wednesday.push(parseInt(Wednesday_wind_speed_value))
+            temperature_Wednesday.push(parseInt(Wednesday_temperature_value))
+            humidity_Wednesday.push(parseInt(Wednesday_humidity_value))
+            Datetime_Wednesday.push(Wednesday_date_time)
+
+
+        }
+        console.log('CHECK Wednesday')
+
+    }	
+
+    function ParseThursdaydata(Thursdaydata) {
+            Papa.parse('Data_treatment/Data_treated/Thursday.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    Thursdaydata(results.data)
+                    console.log("hey Thursday" + results.data)
+
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+
+            })
+        }
+    
+    
+
+    function Thursdaydata(data) {
+        for (var i = 0, l=data.length; i < l; i++) {
+            var Thursday_presence_value = data[i]['Presence']
+            var Thursday_weather_description = data[i]['Weather']
+            var Thursday_wind_speed_value= data[i]['Wind_speed']
+            var Thursday_temperature_value = data[i]['temperature']
+            var Thursday_humidity_value = data[i]['humidity']
+            var Thursday_date_time= data[i]['Datetime']
+            Presence_Thursday.push(parseInt(Thursday_presence_value))
+            Weather_Thursday.push(parseInt(Thursday_weather_description))
+            Wind_speed_Thursday.push(parseInt(Thursday_wind_speed_value))
+            temperature_Thursday.push(parseInt(Thursday_temperature_value))
+            humidity_Thursday.push(parseInt(Thursday_humidity_value))
+            Datetime_Thursday.push(Thursday_date_time)
+
+
+        }
+        console.log('CHECK')
+
+    }	
+
+    function ParseFridaydata(Fridaydata) {
+            Papa.parse('Data_treatment/Data_treated/Friday.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    Fridaydata(results.data)
+                    console.log("hey Friday" + results.data)
+
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+
+            })
+        }
+    
+    
+
+    function Fridaydata(data) {
+        for (var i = 0, l=data.length; i < l; i++) {
+            var Friday_presence_value = data[i]['Presence']
+            var Friday_weather_description = data[i]['Weather']
+            var Friday_wind_speed_value= data[i]['Wind_speed']
+            var Friday_temperature_value = data[i]['temperature']
+            var Friday_humidity_value = data[i]['humidity']
+            var Friday_date_time= data[i]['Datetime']
+            Presence_Friday.push(parseInt(Friday_presence_value))
+            Weather_Friday.push(parseInt(Friday_weather_description))
+            Wind_speed_Friday.push(parseInt(Friday_wind_speed_value))
+            temperature_Friday.push(parseInt(Friday_temperature_value))
+            humidity_Friday.push(parseInt(Friday_humidity_value))
+            Datetime_Friday.push(Friday_date_time)
+
+
+        }
+        console.log('CHECK')
+
+    }	
+
+    function ParseSaturdaydata(Saturdaydata) {
+            Papa.parse('Data_treatment/Data_treated/Saturday.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    Saturdaydata(results.data)
+                    console.log("hey Saturday" + results.data)
+
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+
+            })
+        }
+    
+    
+
+    function Saturdaydata(data) {
+        for (var i = 0, l=data.length; i < l; i++) {
+            var Saturday_presence_value = data[i]['Presence']
+            var Saturday_weather_description = data[i]['Weather']
+            var Saturday_wind_speed_value= data[i]['Wind_speed']
+            var Saturday_temperature_value = data[i]['temperature']
+            var Saturday_humidity_value = data[i]['humidity']
+            var Saturday_date_time= data[i]['Datetime']
+            Presence_Saturday.push(parseInt(Saturday_presence_value))
+            Weather_Saturday.push(parseInt(Saturday_weather_description))
+            Wind_speed_Saturday.push(parseInt(Saturday_wind_speed_value))
+            temperature_Saturday.push(parseInt(Saturday_temperature_value))
+            humidity_Saturday.push(parseInt(Saturday_humidity_value))
+            Datetime_Saturday.push(Saturday_date_time)
+
+
+        }
+        console.log('CHECK')
+
+    }	
+
+    function ParseSundaydata(Sundaydata) {
+            Papa.parse('Data_treatment/Data_treated/Sunday.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    Sundaydata(results.data)
+                    console.log("hey Sunday" + results.data)
+
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+
+            })
+        }
+    
+    
+
+    function Sundaydata(data) {
+        for (var i = 0, l=data.length; i < l; i++) {
+            var Sunday_presence_value = data[i]['Presence']
+            var Sunday_weather_description = data[i]['Weather']
+            var Sunday_wind_speed_value= data[i]['Wind_speed']
+            var Sunday_temperature_value = data[i]['temperature']
+            var Sunday_humidity_value = data[i]['humidity']
+            var Sunday_date_time= data[i]['Datetime']
+            Presence_Sunday.push(parseInt(Sunday_presence_value))
+            Weather_Sunday.push(parseInt(Sunday_weather_description))
+            Wind_speed_Sunday.push(parseInt(Sunday_wind_speed_value))
+            temperature_Sunday.push(parseInt(Sunday_temperature_value))
+            humidity_Sunday.push(parseInt(Sunday_humidity_value))
+            Datetime_Sunday.push(Sunday_date_time)
+
+
+        }
+        console.log('CHECK ')
+
+    }	
+
+
+    function ParseMondaydata(Mondaydata) {
+            Papa.parse('Data_treatment/Data_treated/Monday.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    Mondaydata(results.data)
+                    console.log("hey Monday" + results.data)
+
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+
+            })
+        }
+    
+    
+
+    function Mondaydata(data) {
+        for (var i = 0, l=data.length; i < l; i++) {
+            var Monday_presence_value = data[i]['Presence']
+            var Monday_weather_description = data[i]['Weather']
+            var Monday_wind_speed_value= data[i]['Wind_speed']
+            var Monday_temperature_value = data[i]['temperature']
+            var Monday_humidity_value = data[i]['humidity']
+            var Monday_date_time= data[i]['Datetime']
+            Presence_Monday.push(parseInt(Monday_presence_value))
+            Weather_Monday.push(parseInt(Monday_weather_description))
+            Wind_speed_Monday.push(parseInt(Monday_wind_speed_value))
+            temperature_Monday.push(parseInt(Monday_temperature_value))
+            humidity_Monday.push(parseInt(Monday_humidity_value))
+            Datetime_Monday.push(Monday_date_time)
+
+
+        }
+        console.log('CHECK ')
+
+    }	
+
+    // Now we call all the functions
+
+    ParseTuesdaydata(Tuesdaydata)
+    ParseWednesdaydata(Wednesdaydata)
+    ParseThursdaydata(Thursdaydata)
+    ParseThursdaydata(Fridaydata)
+    ParseSaturdaydata(Saturdaydata)
+    ParseSundaydata(Sundaydata)
+    ParseMondaydata(Mondaydata)
+
+	ParsePresencedata(Presencedata)
+	ParseWeatherdata(Weatherdata)
+
+    new Chart(document.getElementById("Presence_chart"), {
+        type: 'line',
+        data: {
+        labels: Datetime_presence,
+        datasets: [{ 
+            data: Presence_data,
+            label: "Presence",
+            borderColor: "#FFFFFF",
+            fill: false
+            },
+        ]
+        },
+        options: {
+            title: {
+            display: true,
+            text: 'Presence data over the week '
+         }
+        }
+    });
+
+	
+
+	// Charts weather
+
+    new Chart(document.getElementById("Weather_chart"), {
+        type: 'line',
+        data: {
+        labels: Datetime_weather,
+        datasets: [{  
+            data: Weather_data,
+            label: "Weather",
+            borderColor: "#8e5ea2",
+            fill: false
+            }, { 
+            data: temperature_data,
+            label: "Temperature",
+            borderColor: "#3cba9f",
+            fill: false
+            }, { 
+            data: Wind_speed_data,
+            label: "Wind speed",
+            borderColor: "#e8c3b9",
+            fill: false
+            }, { 
+            data: humidity_data,
+            label: "Humidity",
+            borderColor: "#c45850",
+            fill: false
+            }
+        ]
+        },
+        options: {
+            title: {
+            display: true,
+            text: 'Weather over the week '
+         }
+        }
+    });
+
+    
+// Day charts
+
+new Chart(document.getElementById("Tuesday_chart"), {
+        type: 'line',
+        data: {
+        labels: Datetime_Tuesday,
+        datasets: [{ 
+            data: Presence_Tuesday,
+            label: "Presence",
+            borderColor: "#3e95cd",
+            fill: false
+            }, { 
+            data: Weather_Tuesday,
+            label: "Weather",
+            borderColor: "#8e5ea2",
+            fill: false
+            }, { 
+            data: temperature_Tuesday,
+            label: "Temperature",
+            borderColor: "#3cba9f",
+            fill: false
+            }, { 
+            data: Wind_speed_Tuesday,
+            label: "Wind speed",
+            borderColor: "#e8c3b9",
+            fill: false
+            }, { 
+            data: humidity_Tuesday,
+            label: "Humidity",
+            borderColor: "#c45850",
+            fill: false
+            }
+        ]
+        },
+        options: {
+            title: {
+            display: true,
+            text: 'Tuesday 25th December'
+         }
+        }
+    });
+
+
+    new Chart(document.getElementById("Wednesday_chart"), {
+        type: 'line',
+        data: {
+        labels: Datetime_Wednesday,
+        datasets: [{ 
+            data: Presence_Wednesday,
+            label: "Presence",
+            borderColor: "#3e95cd",
+            fill: false
+            }, { 
+            data: Weather_Wednesday,
+            label: "Weather",
+            borderColor: "#8e5ea2",
+            fill: false
+            }, { 
+            data: temperature_Wednesday,
+            label: "Temperature",
+            borderColor: "#3cba9f",
+            fill: false
+            }, { 
+            data: Wind_speed_Wednesday,
+            label: "Wind speed",
+            borderColor: "#e8c3b9",
+            fill: false
+            }, { 
+            data: humidity_Wednesday,
+            label: "Humidity",
+            borderColor: "#c45850",
+            fill: false
+            }
+        ]
+        },
+        options: {
+            title: {
+            display: true,
+            text: 'Wednesday 26th December'
+         }
+        }
+    });
+
+
+    new Chart(document.getElementById("Thursday_chart"), {
+        type: 'line',
+        data: {
+        labels: Datetime_Thursday,
+        datasets: [{ 
+            data: Presence_Thursday,
+            label: "Presence",
+            borderColor: "#3e95cd",
+            fill: false
+            }, { 
+            data: Weather_Thursday,
+            label: "Weather",
+            borderColor: "#8e5ea2",
+            fill: false
+            }, { 
+            data: temperature_Thursday,
+            label: "Temperature",
+            borderColor: "#3cba9f",
+            fill: false
+            }, { 
+            data: Wind_speed_Thursday,
+            label: "Wind speed",
+            borderColor: "#e8c3b9",
+            fill: false
+            }, { 
+            data: humidity_Thursday,
+            label: "Humidity",
+            borderColor: "#c45850",
+            fill: false
+            }
+        ]
+        },
+        options: {
+            title: {
+            display: true,
+            text: 'Thursday 27th December'
+         }
+        }
+    });
+
+    new Chart(document.getElementById("Friday_chart"), {
+        type: 'line',
+        data: {
+        labels: Datetime_Friday,
+        datasets: [{ 
+            data: Presence_Friday,
+            label: "Presence",
+            borderColor: "#3e95cd",
+            fill: false
+            }, { 
+            data: Weather_Friday,
+            label: "Weather",
+            borderColor: "#8e5ea2",
+            fill: false
+            }, { 
+            data: temperature_Friday,
+            label: "Temperature",
+            borderColor: "#3cba9f",
+            fill: false
+            }, { 
+            data: Wind_speed_Friday,
+            label: "Wind speed",
+            borderColor: "#e8c3b9",
+            fill: false
+            }, { 
+            data: humidity_Friday,
+            label: "Humidity",
+            borderColor: "#c45850",
+            fill: false
+            }
+        ]
+        },
+        options: {
+            title: {
+            display: true,
+            text: 'Friday 28th December'
+         }
+        }
+    });
+
+    new Chart(document.getElementById("Saturday_chart"), {
+        type: 'line',
+        data: {
+        labels: Datetime_Saturday,
+        datasets: [{ 
+            data: Presence_Saturday,
+            label: "Presence",
+            borderColor: "#3e95cd",
+            fill: false
+            }, { 
+            data: Weather_Saturday,
+            label: "Weather",
+            borderColor: "#8e5ea2",
+            fill: false
+            }, { 
+            data: temperature_Saturday,
+            label: "Temperature",
+            borderColor: "#3cba9f",
+            fill: false
+            }, { 
+            data: Wind_speed_Saturday,
+            label: "Wind speed",
+            borderColor: "#e8c3b9",
+            fill: false
+            }, { 
+            data: humidity_Saturday,
+            label: "Humidity",
+            borderColor: "#c45850",
+            fill: false
+            }
+        ]
+        },
+        options: {
+            title: {
+            display: true,
+            text: 'Saturday 28th December'
+         }
+        }
+    });
+
+    new Chart(document.getElementById("Sunday_chart"), {
+        type: 'line',
+        data: {
+        labels: Datetime_Sunday,
+        datasets: [{ 
+            data: Presence_Sunday,
+            label: "Presence",
+            borderColor: "#3e95cd",
+            fill: false
+            }, { 
+            data: Weather_Sunday,
+            label: "Weather",
+            borderColor: "#8e5ea2",
+            fill: false
+            }, { 
+            data: temperature_Sunday,
+            label: "Temperature",
+            borderColor: "#3cba9f",
+            fill: false
+            }, { 
+            data: Wind_speed_Sunday,
+            label: "Wind speed",
+            borderColor: "#e8c3b9",
+            fill: false
+            }, { 
+            data: humidity_Sunday,
+            label: "Humidity",
+            borderColor: "#c45850",
+            fill: false
+            }
+        ]
+        },
+        options: {
+            title: {
+            display: true,
+            text: 'Sunday 28th December'
+         }
+        }
+    });
+
+    new Chart(document.getElementById("Monday_chart"), {
+        type: 'line',
+        data: {
+        labels: Datetime_Monday,
+        datasets: [{ 
+            data: Presence_Monday,
+            label: "Presence",
+            borderColor: "#3e95cd",
+            fill: false
+            }, { 
+            data: Weather_Monday,
+            label: "Weather",
+            borderColor: "#8e5ea2",
+            fill: false
+            }, { 
+            data: temperature_Monday,
+            label: "Temperature",
+            borderColor: "#3cba9f",
+            fill: false
+            }, { 
+            data: Wind_speed_Monday,
+            label: "Wind speed",
+            borderColor: "#e8c3b9",
+            fill: false
+            }, { 
+            data: humidity_Monday,
+            label: "Humidity",
+            borderColor: "#c45850",
+            fill: false
+            }
+        ]
+        },
+        options: {
+            title: {
+            display: true,
+            text: 'Monday 31st December'
+         }
+        }
+    });
+
+
+</script>
