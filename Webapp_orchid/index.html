@@ -55,7 +55,11 @@
 						<div class="inner">
 							<!-- 2 Columns -->
 								<div class="flex flex-2">
-										<br/><!-- Just so that JSFiddle's Result label doesn't overlap the Chart -->
+                                        <p>Once you have selected the date of your event, the ideal time corresponds to the highest presence value!</p>
+                                        <p></p>
+                                        
+                                        <br/><!-- Just so that JSFiddle's Result label doesn't overlap the Chart -->
+                                        
 										<select class="dropdown" id="selectMe" >
 												<!-- onchange="GetSelectValue()" -->
 											<option value="" selected="selected">Select a date</option>
@@ -71,6 +75,7 @@
 										<canvas id="Tuesday_chart" width="400" height="200" class="group"></canvas>
                                         <canvas id='Wednesday_chart' width="400" height="200" class="group"></canvas>
                                         <canvas id="Thursday_chart" width="400" height="200" class='group'></canvas>
+                                        <!-- <p id='Friday_chart' class='group'> Your number is 20!</p> -->
                                         <canvas id="Friday_chart" width="400" height="200" class='group'></canvas>
                                         <canvas id="Saturday_chart" width="400" height="200" class='group'></canvas>
                                         <canvas id="Sunday_chart" width="400" height="200" class='group'></canvas>
@@ -640,6 +645,8 @@ var Datetime_Monday = []
 // Day charts
 
 new Chart(document.getElementById("Tuesday_chart"), {
+
+
         type: 'line',
         data: {
         labels: Datetime_Tuesday,
