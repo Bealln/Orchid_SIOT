@@ -9,7 +9,7 @@ Presentation URL : https://youtu.be/ttr2diTmjO8
 
 Code and Data : https://github.com/Bealln/Orchid_SIOT
 
-Website : https://bealln.github.io/Orchid_SIOT/Webapp_orchid/index.html (Please not graphics on the website dont show until one of the headers is selected) 
+Website : https://bealln.github.io/Orchid_SIOT/Webapp_orchid/index.html (Please note graphics on the website don't show until one of the headers is selected) 
 
 Note the code runs in Python 3.X and uses multiple libraries which should be imported for a correct functioning of the code.
 
