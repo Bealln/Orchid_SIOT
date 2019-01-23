@@ -12,10 +12,6 @@ import time
 
 
 def weather_info():
-    # First drive, print titles
-
-    # Print titles for weather data
-    #w = open("test_light_intensity.txt", "w+")
 
     # Create timeout- 7 days, 24 hours, 60 min, 60 seconds
     timeout = time.time() + 60 * 60 * 24 * 7
@@ -58,8 +54,7 @@ def weather_info():
                 JSON_FILENAME = 'data.json'
 
                 # Google sheet to save to
-                # GSHEET_NAME = 'Weather_data'
-
+                # GSq'Weather_data'
 
                 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
                 # drive
